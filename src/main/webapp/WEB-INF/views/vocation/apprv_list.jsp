@@ -12,15 +12,15 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<!-- contents start -->
-				<h1 class="text-center mb-3">결제 목록</h1>
+				<h1 class="text-center mb-3">결재 목록</h1>
 
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>결제 번호</th>
+							<th>결재 번호</th>
 							<th>년도</th>	<th>문서카테고리</th>	<th>문서번호</th>
 							<th>상신부서</th>	<th>상신자</th>
-							<th>문서유형</th>	<th>결제상태</th>
+							<th>문서유형</th>	<th>결재상태</th>
 							<th>승인/반려</th>	<th>승인/반려 사유</th>	<th>전송</th>
 						</tr>
 					</thead>
