@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DeptMapper">
+
+	<select id="getApprvLine" parameterType="kr.co.ureca.dto.Employee" resultType="kr.co.ureca.dto.Department">
+		with recursive result (deptid, deptname, pdeptid, empid)
+		as (
+			select deptid, deptname, pdeptid, empid
+			from department
+			where deptid = #{deptid}
+			union all
+			select rec.deptid, rec.deptname, rec.pdeptid, rec.empid
+			from department rec
+			inner join result
+			on rec.deptid = result.pdeptid
+		)
+		select result.deptid, result.deptname, result.pdeptid, result.empid
+				, employee.empname, employee.hrjp, common_code.codename as hrjpname
+		from result, employee, common_code
+		where result.empid = employee.empid
+        and employee.hrjp = common_code.code
+        and common_code.codeclass = 'hrjp'
+		order by deptid desc
+	</select>
+
+</mapper>

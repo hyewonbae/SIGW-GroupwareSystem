@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LoginMapper">
+
+	<select id="loginCheck" parameterType="kr.co.ureca.dto.LoginDTO"
+							resultType="kr.co.ureca.dto.Employee">
+		select e.empid, e.empname, e.telcom, e.telhom, e.telcel
+				,e.emailcom, e.emailpsn, e.emailpay
+				,e.deptid, d.deptname, e.hrjp, e.datehire
+		from employee e, department d
+		where e.empid = #{loginID}
+		and e.emppwd = #{loginPWD}
+		and e.retireyn != 'Y'
+		and e.deptid = d.deptid
+	</select>
+
+</mapper>

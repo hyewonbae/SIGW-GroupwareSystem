@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ApprvMapper">
+
+	<select id="apprvProcessStatus"
+			parameterType="kr.co.ureca.dto.ApproveProcessDTO"
+			resultType="int">
+		select min(apprvstatus)
+		from approveprocess
+		where docid = #{docid}
+	</select>
+
+	<update id="apprvDocumentUpdate" parameterType="kr.co.ureca.dto.ApproveProcessDTO">
+		update approvedocument
+		set apprvstatus = #{apprvstatus}
+		where docid = #{docid}
+	</update>
+
+	<update id="apprvProcessUpdate" parameterType="kr.co.ureca.dto.ApproveProcessDTO">
+		update approveprocess
+		set apprvstatus = #{apprvstatus}
+		, apprvcomment = #{apprvcomment}
+		where apprvid = #{apprvid}
+	</update>
+
+	<select id="apprvList"
+			parameterType="java.lang.String"
+			resultType="kr.co.ureca.dto.ApproveDocument">
+		SELECT ap.docid, ap.year,
+		    ap.doccategory, c3.codename AS doccategorynm,
+		    ap.deptid, d.deptname, ap.empid, e.empname,
+		    ap.doctype, c2.codename AS doctypenm,
+		    ap.apprvstatus, c1.codename AS apprvstatusnm,
+		    ap.created, ap.createdat, ap.updated, ap.updatedat,
+            pro.apprvid, pro.apprvseq, pro.apprvcomment,
+            pro.apprvstatus AS apprvProStatus, c4.codename AS apprvProStatusNM
+   			,	(select pro2.apprvstatus  from approveprocess pro2
+					where pro2.docid = pro.docid and pro2.apprvseq = pro.apprvseq - 1
+				) preStatus
+		FROM approvedocument ap, approveprocess pro,
+				department d, employee e,
+                common_code c1, common_code c2, common_code c3, common_code c4
+		WHERE pro.empid = #{username}
+        AND pro.docid = ap.docid
+        AND ap.deptid = d.deptid
+        AND ap.empid = e.empid
+        AND ap.doccategory = c3.code AND c3.codeclass = 'hrdc' 
+        AND ap.doctype = c2.code AND c2.codeclass = 'hrdt' 
+        AND ap.apprvstatus = c1.code AND c1.codeclass = 'hras'
+        AND pro.apprvstatus = c4.code AND c4.codeclass = 'hras'
+	</select>
+
+	<select id="getApproveStatus"
+			parameterType="java.lang.String"
+			resultType="kr.co.ureca.dto.ApproveStatusDTO">
+			select
+				(select count(*) from approvedocument
+				where empid = #{username} and apprvstatus = 1) AS cntApprvUp,
+				(select count(*) from approvedocument
+				where empid = #{username} and apprvstatus = 2) AS cntApprvIng,
+				(select count(*) from approvedocument
+				where empid = #{username} and apprvstatus = 3) AS cntApprvComplete,
+				(select count(*) from approvedocument
+				where empid = #{username} and apprvstatus = 4) AS cntApprvReturn,
+				(select count(pro.apprvstatus)
+				from approveprocess pro
+						left outer join approveprocess pro2
+							on pro.docid = pro2.docid
+				            and pro2.apprvseq = pro.apprvseq - 1
+				where pro.empid = #{username}
+				and pro.apprvstatus = 1
+				and (pro2.apprvstatus is null or pro2.apprvstatus = 3)) AS cntApprvWait
+	</select>
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<mappers>
+		<mapper resource="mapper/approve-mapper.xml" />
+		<mapper resource="mapper/commoncode-mapper.xml" />
+		<mapper resource="mapper/department-mapper.xml" />
+		<mapper resource="mapper/employee-mapper.xml" />
+		<mapper resource="mapper/login-mapper.xml" />
+		<mapper resource="mapper/member-mapper.xml" />
+		<mapper resource="mapper/role-mapper.xml" />
+		<mapper resource="mapper/seculogin-mapper.xml" />
+		<mapper resource="mapper/vocation-mapper.xml" />
+	</mappers>
+
+</configuration>

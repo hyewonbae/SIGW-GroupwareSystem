@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EmpMapper">
+
+	<select id="getEmpByUsername"
+			parameterType="java.lang.String"
+			resultType="kr.co.ureca.dto.Employee">
+		SELECT employee.empid,
+		    employee.empname,
+		    employee.rgstno,
+		    employee.telcom,
+		    employee.telhom,
+		    employee.telcel,
+		    employee.emailcom,
+		    employee.emailpsn,
+		    employee.emailpay,
+		    employee.deptid,
+		    department.deptname,
+		    employee.hrjp,
+		    employee.retireyn,
+		    employee.datehire,
+		    employee.dateretire,
+		    employee.created,
+		    employee.createdat,
+		    employee.updated,
+		    employee.updatedat
+		from employee, department
+		where employee.empid = #{username}
+		and employee.deptid = department.deptid
+	</select>
+
+</mapper>

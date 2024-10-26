@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberMapper">
+
+	<select id="employeeCheck"
+			parameterType="kr.co.ureca.dto.UserDTO"
+			resultType="kr.co.ureca.dto.Employee">
+		select employee.empid, employee.empname, user.username
+		from employee left outer join user
+						on employee.empid = user.username
+		where employee.empid = #{username}
+	</select>
+
+	<insert id="insertUser" parameterType="kr.co.ureca.dto.UserDTO">
+		insert into user ( username, password, created, createdat, updated, updatedat )
+		values ( #{username}, #{password}, #{created}, now(), #{updated}, now() )
+		<selectKey order="AFTER" keyProperty="id" resultType="Long">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<insert id="insertUserRole" parameterType="kr.co.ureca.dto.UserDTO">
+		insert into userrole ( userid, roleid, created, createdat, updated, updatedat )
+		values
+			<foreach item="String" separator="," collection="roleArr">
+				 ( #{id}, #{String}, #{created}, now(), #{updated}, now() )
+			</foreach>
+	</insert>
+
+	<select id="getAllList"
+			parameterType="kr.co.ureca.dto.SearchDTO"
+			resultType="kr.co.ureca.dto.UserDTO">
+		select user.id, user.username, employee.empname
+                , (	select group_concat(role.rolename)
+					from userrole, role
+                    where userid = user.id
+                    and userrole.roleid = role.roleid) AS roleNames
+				, user.created, e1.empname AS createdEmpname, user.createdat
+				, user.updated, e2.empname AS updatedEmpname, user.updatedat
+		from employee, user
+				left outer join employee e1 on user.created = e1.empid
+				left outer join employee e2 on user.updated = e2.empid
+		where employee.empid = user.username
+		<if test="kwCode != null and kwCode != ''">
+			and user.username like concat( '%', #{kwCode}, '%' )
+		</if>
+		<if test="kwName != null and kwName != ''">
+			and employee.empname like concat( '%', #{kwName}, '%' )
+		</if>
+	</select>
+
+	<delete id="deleteUser" parameterType="kr.co.ureca.dto.UserDTO">
+		delete from user where id = #{id}
+	</delete>
+
+</mapper>

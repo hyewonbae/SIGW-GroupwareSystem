@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="RoleMapper">
+
+	<select id="getAllList" resultType="kr.co.ureca.dto.RoleDTO">
+		select role.roleid, role.rolename, role.roledesc
+				, role.created, e1.empname AS createdEmpname, role.createdat
+				, role.updated, e2.empname AS updatedEmpname, role.updatedat
+		from role, employee e1, employee e2
+		where role.created = e1.empid
+		and role.updated = e2.empid
+		order by rolename
+	</select>
+
+	<insert id="insertRole" parameterType="kr.co.ureca.dto.RoleDTO">
+		insert into role (rolename, roledesc, created, createdat, updated, updatedat)
+		values (#{rolename}, #{roledesc}, #{created}, now(), #{updated}, now())
+	</insert>
+
+	<delete id="deleteRole" parameterType="kr.co.ureca.dto.RoleDTO">
+		delete from role where roleid = #{roleid}
+	</delete>
+
+</mapper>
