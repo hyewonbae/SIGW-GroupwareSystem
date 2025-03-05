@@ -1,12 +1,12 @@
 ## 프로젝트 개요
-> 그룹웨어시스템의 휴가원 결재시스템 구현
+그룹웨어시스템의 휴가원 결재시스템 구현
 
 ### 개발환경
-> - Backend : SpringBoot, MyBatis, Mysql </br>
-> - Frontend : JSP, JSTL, HTML, Bootstrap, CSS
+- Backend : SpringBoot, MyBatis, Mysql </br>
+- Frontend : JSP, JSTL, HTML, Bootstrap, CSS
 
 ### 개발기간
-> 2024/08/09 ~ 2024/08/16
+- 2024/08/09 ~ 2024/08/16
 
 ### ERD
-<img width="400" src="https://private-user-images.githubusercontent.com/43161096/380375952-936b37a1-35df-4670-a89d-8d17b812ece4.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Mjk5MzE0NzIsIm5iZiI6MTcyOTkzMTE3MiwicGF0aCI6Ii80MzE2MTA5Ni8zODAzNzU5NTItOTM2YjM3YTEtMzVkZi00NjcwLWE4OWQtOGQxN2I4MTJlY2U0LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDEwMjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQxMDI2VDA4MjYxMlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWVlYzgxM2RlNGRkZDg5MDM5NzE1MjQxOWVlZjM3NjEwNWFjM2I0ODQ3ZTZiYzkxYjZiMjJlNDQ1MTIxMjU2NzQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.G6M_t5K1G12A5eBmblHw0VyTM6jbfSzK_w3ydVkT7Ac" alt="sigw_erd">
+<img width="400" src="https://github.com/user-attachments/assets/5a59cfe9-4f66-41df-83a2-6161d8836d43" alt="sigw_erd">
